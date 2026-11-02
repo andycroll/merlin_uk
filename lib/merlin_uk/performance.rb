@@ -24,8 +24,6 @@ module MerlinUk
     #   @option options [String] :language (nil) audio language, e.g. 'Hindi'
     #   @option options [Time] :starting_at listed start time of the performance
 
-    TIME_ZONE = 'Europe/London'.freeze
-
     # Performances within an inclusive range of showing dates, from one
     # request: the venue's home page holds every advertised date.
     # @param [String] cinema_id the website's cinema code, e.g. 'MER_REDR'
@@ -34,7 +32,7 @@ module MerlinUk
     # @return [Array<MerlinUk::Performance>]
     def self.at(
       cinema_id,
-      from: TZInfo::Timezone.get(TIME_ZONE).now.to_date,
+      from: Cinebase::London.today,
       to: from + 13
     )
       raise ArgumentError, 'to must not precede from' if to < from
@@ -45,7 +43,7 @@ module MerlinUk
       else
         html = MerlinUk::Internal::Website.new.home(cinema.url)
         showings = MerlinUk::Internal::Parser::Schedule.new(html).showings
-        performances = showings.select { |showing| (from..to).cover?(london_date(showing.starting_at)) }.map do |showing|
+        performances = showings.select { |showing| (from..to).cover?(Cinebase::London.date(showing.starting_at)) }.map do |showing|
           new(showing.to_hash.merge(cinema_id: cinema.id, cinema_name: cinema.name))
         end
         performances.sort_by(&:starting_at)
@@ -63,10 +61,5 @@ module MerlinUk
     # @!method variant
     #   The kinds of screening (arts, baby, q&a, relaxed, subtitled)
     #   @return <Array[String]>
-
-    def self.london_date(time)
-      TZInfo::Timezone.get(TIME_ZONE).to_local(time).to_date
-    end
-    private_class_method :london_date
   end
 end

@@ -8,12 +8,14 @@ module MerlinUk
     # subdomain, whose home page holds every advertised date in its full
     # schedule.
     class Website
-      include Http
+      def initialize
+        @http = Cinebase::Http.new
+      end
 
       # @param [String] venue_url e.g. 'https://redruth.merlincinemas.co.uk'
       # @return [String] the venue's home page
       def home(venue_url)
-        get("#{venue_url}/")
+        @http.get("#{venue_url}/")
       end
     end
   end

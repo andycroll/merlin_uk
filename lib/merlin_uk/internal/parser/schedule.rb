@@ -21,7 +21,6 @@ module MerlinUk
         # The site marks live stage shows, which are not films, with this
         # icon, and screened theatre, opera and concerts with 'event_cinema'
         STAGE_ICON = 'theatre'
-        TIME_ZONE = 'Europe/London'
 
         # @param [String] html a venue's home page
         def initialize(html)
@@ -93,8 +92,7 @@ module MerlinUk
         end
 
         def starting_at(date, time)
-          local = Time.utc(date.year, date.month, date.day, time[1].to_i, time[2].to_i)
-          TZInfo::Timezone.get(TIME_ZONE).local_to_utc(local) { |periods| periods.first }.utc
+          Cinebase::London.utc(Time.utc(date.year, date.month, date.day, time[1].to_i, time[2].to_i))
         end
       end
     end

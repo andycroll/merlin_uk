@@ -5,7 +5,6 @@ require 'cinebase'
 
 require_relative './merlin_uk/version'
 
-require_relative './merlin_uk/internal/http'
 require_relative './merlin_uk/internal/website'
 require_relative './merlin_uk/internal/title_sanitizer'
 require_relative './merlin_uk/internal/parser/showing'
