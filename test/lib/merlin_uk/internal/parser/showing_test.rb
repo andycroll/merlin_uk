@@ -13,6 +13,7 @@ class MerlinUk::Internal::Parser::ShowingTest < Minitest::Test
       film_year: 1960,
       language: nil,
       starting_at: STARTING_AT,
+      title: 'Picture House presents Psycho (1960)',
       variant: []
     }
 
@@ -46,6 +47,14 @@ class MerlinUk::Internal::Parser::ShowingTest < Minitest::Test
     assert_equal '3d', attributes[:dimension]
     assert_equal 'Hindi', attributes[:language]
     assert_equal 'Avatar', attributes[:film_name]
+  end
+
+  def test_performances_read_variants_from_the_raw_title
+    attributes = showing('Relaxed Screening: Wicker').to_hash
+    performance = MerlinUk::Performance.new(attributes.merge(cinema_id: 'MER_REDR', cinema_name: 'Redruth'))
+
+    assert_equal 'Wicker', performance.film_name
+    assert_equal %w(relaxed), performance.variant
   end
 
   private

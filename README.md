@@ -22,8 +22,8 @@ The gem conforms to the API set down in the `cinebase` gem, [andycroll/cinebase]
 
 Performance titles are sanitized as much as possible, removing years, the
 Bring Your Own Baby prefix, film society and special screening prefixes, Q&A
-and "at The Ritz" suffixes, and naming National Theatre Live, Royal Ballet
-and Opera and Met Opera screenings in full.
+and "at The Ritz" suffixes. National Theatre Live, Royal Ballet and Opera
+and Met Opera series become the performance's `event`.
 
 No token or setup is needed. The website has no API: each venue's home
 page lists its whole schedule in HTML. Tickets are sold through each venue's

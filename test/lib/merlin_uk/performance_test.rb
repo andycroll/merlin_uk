@@ -52,7 +52,8 @@ class MerlinUk::PerformanceTest < Minitest::Test
   def test_summer_times_are_converted_to_utc
     performance = performances_at('MER_REDR').last
 
-    assert_equal 'Royal Ballet and Opera: Romeo & Juliet', performance.film_name
+    assert_equal 'Romeo & Juliet', performance.film_name
+    assert_equal Cinebase::Event.new(name: 'Royal Ballet and Opera'), performance.event
     assert_equal Time.utc(2027, 5, 25, 18, 15), performance.starting_at
     assert_equal %w(arts), performance.variant
   end

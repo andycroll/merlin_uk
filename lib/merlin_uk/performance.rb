@@ -23,6 +23,7 @@ module MerlinUk
     #   @option options [Integer] :film_year (nil) year from the film's title
     #   @option options [String] :language (nil) audio language, e.g. 'Hindi'
     #   @option options [Time] :starting_at listed start time of the performance
+    #   @option options [String] :title (nil) raw title, for audience variants
 
     # Performances within an inclusive range of showing dates, from one
     # request: the venue's home page holds every advertised date.
