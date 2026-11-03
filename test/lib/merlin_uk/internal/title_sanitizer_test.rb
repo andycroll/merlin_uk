@@ -3,7 +3,10 @@ require_relative '../../../test_helper'
 class MerlinUk::Internal::TitleSanitizerTest < Minitest::Test
   def test_plain_titles_are_unchanged
     assert_sanitized 'Ghosts: The Possession Of Button House', 'Ghosts: The Possession Of Button House'
-    assert_sanitized 'Exhibition On Screen: Renoir & Love', 'Exhibition On Screen: Renoir & Love'
+  end
+
+  def test_exhibition_on_screen
+    assert_sanitized 'Exhibition on Screen: Renoir & Love', 'Exhibition On Screen: Renoir & Love'
   end
 
   def test_parent_and_baby_prefix
